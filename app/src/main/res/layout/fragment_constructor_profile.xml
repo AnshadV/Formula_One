@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:scaleType="centerCrop"
+                android:scaleType="centerInside"
                 android:src="@drawable/mercedes_con"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -150,6 +150,14 @@
                 app:layout_constraintStart_toEndOf="@+id/teamChief"
                 app:layout_constraintTop_toBottomOf="@+id/teamChiefCaption" />
 
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:dividerInsetEnd="16dp"
+                app:dividerInsetStart="16dp"
+                app:layout_constraintTop_toBottomOf="@id/technicalChief" />
+
             <TextView
                 android:id="@+id/firstGPCaption"
                 android:layout_width="wrap_content"
@@ -166,12 +174,12 @@
                 android:id="@+id/firstGP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="23dp"
                 android:text="2019"
                 app:layout_constraintEnd_toStartOf="@+id/worldChampionships"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/firstGPCaption" />
+                app:layout_constraintTop_toTopOf="@+id/firstGPCaption" />
 
             <TextView
                 android:id="@+id/worldChampionshipsCaption"
@@ -196,6 +204,14 @@
                 app:layout_constraintStart_toEndOf="@+id/firstGP"
                 app:layout_constraintTop_toBottomOf="@+id/worldChampionshipsCaption" />
 
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:dividerInsetEnd="16dp"
+                app:dividerInsetStart="16dp"
+                app:layout_constraintTop_toBottomOf="@id/worldChampionships" />
+
             <TextView
                 android:id="@+id/polePositionsCaption"
                 android:layout_width="wrap_content"
@@ -203,6 +219,8 @@
                 android:layout_marginTop="10dp"
                 android:text="Pole Positions"
                 android:textColor="#917ACF"
+                app:layout_constraintEnd_toStartOf="@+id/fastestLapsCaption"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/worldChampionships" />
 
@@ -212,6 +230,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="1"
+                app:layout_constraintEnd_toStartOf="@+id/fastestLaps"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/polePositionsCaption" />
 
@@ -223,6 +243,8 @@
                 android:text="Fastest Laps"
                 android:textColor="#917ACF"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/polePositionsCaption"
                 app:layout_constraintTop_toBottomOf="@+id/worldChampionships" />
 
             <TextView
@@ -232,6 +254,8 @@
                 android:layout_marginTop="4dp"
                 android:text="1"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/polePositions"
                 app:layout_constraintTop_toBottomOf="@+id/fastestLapsCaption" />
 
 

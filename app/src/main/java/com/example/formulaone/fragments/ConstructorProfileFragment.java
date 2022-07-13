@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.formulaone.R;
@@ -22,6 +24,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,9 +36,11 @@ import com.google.firebase.database.Query;
 public class ConstructorProfileFragment extends Fragment {
     RecyclerView productList;
     ProductAdapter productAdapter;
-    DatabaseReference mbase, cartdb;
+    DatabaseReference mbase, cartdb, constructordb;
     Query query;
     Button addButton, gotoCart;
+    TextView chassis, powerUnit, teamChief, technicalChief, firstGP, WC, polePostions, fastestLaps, base;
+    ImageView constructorImage;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -120,6 +127,54 @@ public class ConstructorProfileFragment extends Fragment {
 
             }
         });
+
+        constructordb = FirebaseDatabase.getInstance().getReference("constructors");
+        constructordb.child(constructor).addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+            @Override
+            public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+                chassis = view.findViewById(R.id.chassis);
+                powerUnit = view.findViewById(R.id.powerUnit);
+                teamChief = view.findViewById(R.id.teamChief);
+                technicalChief = view.findViewById(R.id.technicalChief);
+                firstGP = view.findViewById(R.id.firstGP);
+                WC = view.findViewById(R.id.worldChampionships);
+                polePostions = view.findViewById(R.id.polePositions);
+                fastestLaps = view.findViewById(R.id.fastestLaps);
+                base = view.findViewById(R.id.constructorBase);
+                constructorImage = view.findViewById(R.id.constructorImage);
+                chassis.setText(dataSnapshot.child("chassis").getValue().toString());
+                powerUnit.setText(dataSnapshot.child("powerUnit").getValue().toString());
+                teamChief.setText(dataSnapshot.child("teamChief").getValue().toString());
+                technicalChief.setText(dataSnapshot.child("technicalChief").getValue().toString());
+                firstGP.setText(dataSnapshot.child("firstGP").getValue().toString());
+                WC.setText(dataSnapshot.child("worldChampionships").getValue().toString());
+                polePostions.setText(dataSnapshot.child("polePositions").getValue().toString());
+                fastestLaps.setText(dataSnapshot.child("fastestLaps").getValue().toString());
+                base.setText(dataSnapshot.child("base").getValue().toString());
+                Picasso.get()
+                        .load(dataSnapshot.child("image").getValue().toString())
+                        .networkPolicy(NetworkPolicy.OFFLINE)
+                        .into(constructorImage, new Callback() {
+                            @Override
+                            public void onSuccess() {
+
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                                Picasso.get()
+                                        .load(dataSnapshot.child("image").getValue().toString())
+                                        .into(constructorImage);
+                            }
+                        });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         gotoCart.setOnClickListener(new View.OnClickListener() {
             @Override
