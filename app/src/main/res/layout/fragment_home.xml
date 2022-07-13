@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.HomeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/recentRaceCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        app:cardBackgroundColor="#917ACF"
+
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp">
+
+
+            <TextView
+                android:id="@+id/latestResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="latest result"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/raceName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="MEXICO"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/latestResult" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25-27"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@id/raceName"
+                app:layout_constraintTop_toBottomOf="@id/latestResult" />
+
+            <TextView
+                android:id="@+id/monthYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OCT 2022"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@id/raceName"
+                app:layout_constraintTop_toBottomOf="@id/date" />
+
+            <TextView
+                android:id="@+id/f1Logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:text="F1"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/latestResultsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recentRaceCard"
+        tools:listitem="@layout/race_result_item"
+        tools:itemCount="3"/>
+
+    <TextView
+        android:id="@+id/driverStandingCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="driver standings"
+        android:textColor="#917ACF"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/latestResultsRecyclerView" />
+
+
+    <ScrollView
+        android:id="@+id/recyclerScrollWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        app:layout_constraintTop_toBottomOf="@id/driverStandingCaption">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/driverStandingsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/driver_standing_item"
+            tools:itemCount="5"/>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/constructorStandingCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="constructor standings"
+        android:textColor="#917ACF"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerScrollWrapper" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/constructorStandingRecyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constructorStandingCaption"
+        tools:listitem="@layout/constructor_standing_item" />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

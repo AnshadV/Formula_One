@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "37231915412",
+    "firebase_url": "https://formula-one-6681d-default-rtdb.firebaseio.com",
+    "project_id": "formula-one-6681d",
+    "storage_bucket": "formula-one-6681d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37231915412:android:f1d45b47398b0e7baf5f81",
+        "android_client_info": {
+          "package_name": "com.example.formulaone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "37231915412-o3m77gfbq6navqtmsubpakt7ngneai6j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.formulaone",
+            "certificate_hash": "e07d86f769bdda7155df9bb69ebe7eba75d23ce5"
+          }
+        },
+        {
+          "client_id": "37231915412-uargk0mm34mgkp9phfq9gnrsr6al7gaa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBE0J50sAkTZS6qAGqBPWyr9Z2zzZplTtY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "37231915412-uargk0mm34mgkp9phfq9gnrsr6al7gaa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.formulaone.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_driverProfileFragment"
+            app:destination="@id/driverProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/constructorsFragment"
+        android:name="com.example.formulaone.fragments.ConstructorsFragment"
+        android:label="fragment_constructors"
+        tools:layout="@layout/fragment_constructors" >
+        <action
+            android:id="@+id/action_constructorsFragment_to_constructorProfileFragment"
+            app:destination="@id/constructorProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/driversFragment"
+        android:name="com.example.formulaone.fragments.DriversFragment"
+        android:label="fragment_drivers"
+        tools:layout="@layout/fragment_drivers" >
+        <action
+            android:id="@+id/action_driversFragment_to_driverProfileFragment"
+            app:destination="@id/driverProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/raceFragment"
+        android:name="com.example.formulaone.fragments.RaceFragment"
+        android:label="fragment_race"
+        tools:layout="@layout/fragment_race" />
+    <fragment
+        android:id="@+id/driverProfileFragment"
+        android:name="com.example.formulaone.fragments.DriverProfileFragment"
+        android:label="fragment_driver_profile"
+        tools:layout="@layout/fragment_driver_profile" />
+    <fragment
+        android:id="@+id/constructorProfileFragment"
+        android:name="com.example.formulaone.fragments.ConstructorProfileFragment"
+        android:label="fragment_constructor_profile"
+        tools:layout="@layout/fragment_constructor_profile" >
+        <action
+            android:id="@+id/action_constructorProfileFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.formulaone.fragments.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
+</navigation>

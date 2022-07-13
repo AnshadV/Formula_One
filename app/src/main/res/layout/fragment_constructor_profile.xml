@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.ConstructorProfileFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/constructorProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+
+
+            <ImageView
+                android:id="@+id/constructorImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/mercedes_con"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/constructorFullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Scuedria Ferrari"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/constructorImage" />
+
+            <TextView
+                android:id="@+id/constructorBase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Maranello, Italy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/constructorFullName" />
+
+            <TextView
+                android:id="@+id/chassisCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chassis"
+                android:textColor="#917ACF"
+                app:layout_constraintEnd_toStartOf="@+id/powerUnitCaption"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/constructorBase" />
+
+            <TextView
+                android:id="@+id/chassis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="F1-75"
+                app:layout_constraintEnd_toStartOf="@+id/powerUnit"
+                app:layout_constraintHorizontal_bias="0.461"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/chassisCaption" />
+
+            <TextView
+                android:id="@+id/powerUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Ferrari"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/chassis"
+                app:layout_constraintStart_toStartOf="@+id/powerUnitCaption"
+                app:layout_constraintTop_toBottomOf="@+id/chassisCaption" />
+
+            <TextView
+                android:id="@+id/powerUnitCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Power Unit"
+                android:textColor="#917ACF"
+                app:layout_constraintBottom_toTopOf="@+id/powerUnit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/chassisCaption"
+                app:layout_constraintTop_toBottomOf="@+id/constructorBase"
+                app:layout_constraintVertical_bias="0.6" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:dividerInsetEnd="16dp"
+                app:dividerInsetStart="16dp"
+                app:layout_constraintTop_toBottomOf="@id/powerUnit" />
+
+            <TextView
+                android:id="@+id/teamChiefCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Team Chief"
+                android:textColor="#917ACF"
+                app:layout_constraintEnd_toStartOf="@+id/technicalChiefCaption"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chassis" />
+
+            <TextView
+                android:id="@+id/teamChief"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Mattia Binotto"
+                app:layout_constraintEnd_toStartOf="@+id/technicalChief"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/teamChiefCaption" />
+
+            <TextView
+                android:id="@+id/technicalChiefCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Technical Chief"
+                android:textColor="#917ACF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/teamChiefCaption"
+                app:layout_constraintTop_toBottomOf="@id/powerUnit" />
+
+            <TextView
+                android:id="@+id/technicalChief"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Giancarlo Fisichella"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/teamChief"
+                app:layout_constraintTop_toBottomOf="@+id/teamChiefCaption" />
+
+            <TextView
+                android:id="@+id/firstGPCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="First GP"
+                android:textColor="#917ACF"
+                app:layout_constraintEnd_toStartOf="@+id/worldChampionshipsCaption"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/teamChief" />
+
+            <TextView
+                android:id="@+id/firstGP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="2019"
+                app:layout_constraintEnd_toStartOf="@+id/worldChampionships"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/firstGPCaption" />
+
+            <TextView
+                android:id="@+id/worldChampionshipsCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="World Championships"
+                android:textColor="#917ACF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/firstGPCaption"
+                app:layout_constraintTop_toBottomOf="@+id/technicalChief" />
+
+            <TextView
+                android:id="@+id/worldChampionships"
+                android:layout_width="8dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/firstGP"
+                app:layout_constraintTop_toBottomOf="@+id/worldChampionshipsCaption" />
+
+            <TextView
+                android:id="@+id/polePositionsCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Pole Positions"
+                android:textColor="#917ACF"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/worldChampionships" />
+
+            <TextView
+                android:id="@+id/polePositions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/polePositionsCaption" />
+
+            <TextView
+                android:id="@+id/fastestLapsCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Fastest Laps"
+                android:textColor="#917ACF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/worldChampionships" />
+
+            <TextView
+                android:id="@+id/fastestLaps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fastestLapsCaption" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/constructorProfile" />
+
+    <Button
+        android:id="@+id/GoToCart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="GO TO CART"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/productRecyclerView" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

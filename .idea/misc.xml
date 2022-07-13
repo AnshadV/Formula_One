@@ -3,7 +3,26 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/layout/activity_main.xml" value="0.16" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/drawable/bg_con.xml" value="0.1" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/drawable/bg_rounded.xml" value="0.1" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/drawable/layout_bg.xml" value="0.1" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/layout/activity_main.xml" value="0.3389121338912134" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/layout/bg_con.xml" value="0.2734375" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/layout/cart_item.xml" value="0.4" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/layout/constructor_item.xml" value="0.536" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/layout/constructor_standing_item.xml" value="0.264" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/layout/driver_item.xml" value="0.24394463667820068" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/layout/driver_standing_item.xml" value="0.4" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/layout/fragment_cart.xml" value="0.264" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/layout/fragment_constructor_profile.xml" value="0.264" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/layout/fragment_constructors.xml" value="0.1265625" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/layout/fragment_driver_profile.xml" value="0.2" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/layout/fragment_drivers.xml" value="0.1265625" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/layout/fragment_merch_list.xml" value="0.1265625" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/layout/product_item.xml" value="0.1" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/layout/race_result_item.xml" value="0.259375" />
+        <entry key="..\:/Users/Anshad/AndroidStudioProjects/FormulaOne/app/src/main/res/menu/bottom_navigation.xml" value="0.1" />
       </map>
     </option>
   </component>

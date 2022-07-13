@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -15,8 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FormulaOne"
+        android:name=".FormulaOneAndroidApplication"
         tools:targetApi="31">
         <activity
+            android:launchMode="singleTask"
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -24,7 +27,36 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter>
+                <data android:scheme="formulaone" android:host="open" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="f6rwa.test-app.link" />
+                <!-- example-alternate domain is required for App Links when the Journeys/Web SDK and Deepviews are used inside your website.  -->
+                <data android:scheme="https" android:host="f6rwa-alternate.test-app.link" />
+            </intent-filter>
         </activity>
+
+            <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_faYV5HLaDRkb0Im8uMm3JegbvDkLzrzT" />
+            <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_hgWN1VUgzLcn9Tb9AJd7OekgFunHzwD2" />
+            <meta-data android:name="io.branch.sdk.TestMode" android:value="true" />
+
+
     </application>
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+            <data android:mimeType="text/plain" />
+        </intent>
+    </queries>
 
 </manifest>

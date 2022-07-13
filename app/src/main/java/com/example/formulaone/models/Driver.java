@@ -1,22 +1,29 @@
-package com.example.formulaone;
+package com.example.formulaone.models;
 
-public class DriverModel {
+import io.branch.indexing.BranchUniversalObject;
+import io.branch.referral.util.ContentMetadata;
+
+public class Driver {
     public String driverId;
     public String driverCode;
     public int permanentNumber;
     public String driverName;
+    public String lastName;
     public String dateOfBirth;
     public String nationality;
     public String url;
+    public String driverImageUrl;
 
-    public DriverModel(String driverId, String driverCode, int permanentNumber, String driverName, String dateOfBirth, String nationality, String url) {
+    public Driver(String driverId, String driverCode, int permanentNumber, String driverName, String lastName, String dateOfBirth, String nationality, String url, String driverImageUrl) {
         this.driverId = driverId;
         this.driverCode = driverCode;
         this.permanentNumber = permanentNumber;
         this.driverName = driverName;
+        this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.nationality = nationality;
         this.url = url;
+        this.driverImageUrl = driverImageUrl;
     }
 
     @Override
@@ -32,7 +39,23 @@ public class DriverModel {
                 '}';
     }
 
-    public DriverModel() {}
+    public Driver() {}
+
+    public String getDriverImageUrl() {
+        return driverImageUrl;
+    }
+
+    public void setDriverImageUrl(String driverImageUrl) {
+        this.driverImageUrl = driverImageUrl;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     public String getDriverId() {
         return driverId;
@@ -89,4 +112,23 @@ public class DriverModel {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public BranchUniversalObject getDriverObj() {
+        return new BranchUniversalObject()
+                .setTitle(getDriverName() + " " + getLastName())
+                .setContentDescription("Check out this driver")
+                .setContentImageUrl(getDriverImageUrl())
+                .setContentMetadata(new ContentMetadata()
+                        .addCustomMetadata("driverId", getDriverId())
+                        .addCustomMetadata("driverCode", getDriverCode())
+                        .addCustomMetadata("permanentNumber", String.valueOf(getPermanentNumber()))
+                        .addCustomMetadata("driverName", getDriverName())
+                        .addCustomMetadata("lastName", getLastName())
+                        .addCustomMetadata("dateOfBirth", getDateOfBirth())
+                        .addCustomMetadata("nationality", getNationality())
+                );
+
+    }
+
+
 }
