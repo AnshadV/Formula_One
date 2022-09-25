@@ -167,7 +167,7 @@ public class DriverAdapter extends  RecyclerView.Adapter<DriverAdapter.RecyclerV
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
             int position = getAdapterPosition();
             Bundle bundle = new Bundle();
 

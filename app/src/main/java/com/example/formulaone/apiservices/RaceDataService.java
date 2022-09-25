@@ -178,12 +178,12 @@ public class RaceDataService {
                             //Toast.makeText(context, resultList.get(0).toString(), Toast.LENGTH_SHORT).show(); //working
 
                         }
-                        Toast.makeText(context, "outside of for loop", Toast.LENGTH_SHORT).show(); //working
+                        //Toast.makeText(context, "outside of for loop", Toast.LENGTH_SHORT).show(); //working
 
                         Race race = new Race(season, round, url, raceName, mCircuit, formattedRaceDate, raceTime, resultList);
                         raceList.add(race);
-                        Toast.makeText(context, race.toString(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(context, raceList.get(0).toString(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, race.toString(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, raceList.get(0).toString(), Toast.LENGTH_SHORT).show();
                     }
 
                     raceResponseListener.onResponse(raceList);

@@ -28,6 +28,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class HomeFragment extends Fragment {
     RecentRaceAdapter recentRaceAdapter;
     DriverStandingAdapter driverStandingAdapter;
     ConstructorStandingAdapter constructorStandingAdapter;
+    Query query;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -108,12 +110,15 @@ public class HomeFragment extends Fragment {
         latestResultsRecyclerView.setAdapter(recentRaceAdapter);
 
         mbase1 = FirebaseDatabase.getInstance().getReference("DriverStandings");
+        query = mbase1.orderByChild("position");
+
+
 
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getContext());
         linearLayoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
         driverStandingsRecyclerView.setLayoutManager(linearLayoutManager1);
 
-        FirebaseRecyclerOptions<DriverStanding> options1 = new FirebaseRecyclerOptions.Builder<DriverStanding>().setQuery(mbase1, DriverStanding.class).build();
+        FirebaseRecyclerOptions<DriverStanding> options1 = new FirebaseRecyclerOptions.Builder<DriverStanding>().setQuery(query, DriverStanding.class).build();
         driverStandingAdapter = new DriverStandingAdapter(options1);
         driverStandingsRecyclerView.setAdapter(driverStandingAdapter);
 
@@ -145,7 +150,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onResponse(List<Race> races) {
                         //Toast.makeText(getContext(), "Succes call",Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getContext(),races.toString() ,Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(),races.toString() ,Toast.LENGTH_SHORT).show();
                         raceName.setText(races.get(0).getRaceName());
 
                     }

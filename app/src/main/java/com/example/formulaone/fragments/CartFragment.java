@@ -103,14 +103,14 @@ public class CartFragment extends Fragment {
         FirebaseRecyclerOptions<Product> options = new FirebaseRecyclerOptions.Builder<Product>()
                 .setQuery(query, Product.class)
                 .build();
-        Toast.makeText(getContext(), ""+options.getSnapshots().size(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), ""+options.getSnapshots().size(), Toast.LENGTH_SHORT).show();
         cartAdapter = new CartAdapter(options);
         productList.setAdapter(cartAdapter);
 
         DatabaseReference totalPrice = FirebaseDatabase.getInstance().getReference("Cart");
         //find the total sum of all childvalues of "price" and pass it to the textview
         Query totalPriceQuery = totalPrice.orderByChild("price").equalTo("price");
-        Toast.makeText(getContext(), "TT"+ totalPriceQuery, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "TT"+ totalPriceQuery, Toast.LENGTH_SHORT).show();
 
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override

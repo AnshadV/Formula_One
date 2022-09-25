@@ -108,18 +108,18 @@ public class DriverProfileFragment extends Fragment {
         driverDataService.driverById(driverID, new DriverDataService.DriverDetailsResponseListener() {
             @Override
             public void onResponse(Driver driver) {
-                Toast.makeText(getContext(), String.valueOf(driver.getDriverId()), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), String.valueOf(driver.getDriverId()), Toast.LENGTH_SHORT).show();
                 driverName.setText(driver.getDriverName() + " " + driver.getLastName());
                 nationality.setText(driver.getNationality());
-                Toast.makeText(getContext(), "In fragment" + driver.getNationality(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "In fragment" + driver.getNationality(), Toast.LENGTH_SHORT).show();
                 String driverCode = driver.getDriverCode();
-                Toast.makeText(getContext(), "In fragment" + driverCode, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "In fragment" + driverCode, Toast.LENGTH_SHORT).show();
                 DatabaseReference getImage = databaseReference.child("SizedImage").child(driverCode+"L");
                 getImage.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         image = snapshot.getValue(String.class);
-                        Toast.makeText(getContext(), "In fragment" + image, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), "In fragment" + image, Toast.LENGTH_SHORT).show();
                         Picasso.get()
                                 .load(image)
                                 .networkPolicy(NetworkPolicy.OFFLINE)

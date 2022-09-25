@@ -60,7 +60,7 @@ public class DriverDataService {
                     int permanentNumber = jsonObject.getInt("permanentNumber");
                     String dateOfBirth = jsonObject.getString("dateOfBirth");
                     String nationality = jsonObject.getString("nationality");
-                    Toast.makeText(context, "On call" + nationality, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "On call" + nationality, Toast.LENGTH_SHORT).show();
                     String url = jsonObject.getString("url");
                     Driver driver = new Driver(driverId, driverCode, permanentNumber, firstName, lastName, dateOfBirth, nationality, url, null);
                     driverDetailsResponseListener.onResponse(driver);

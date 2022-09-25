@@ -89,7 +89,7 @@ public class ConstructorAdapter extends RecyclerView.Adapter<ConstructorAdapter.
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putString("constructorId", model.getConstructorId());
-                Toast.makeText(context, "Constructor Id: " + model.getConstructorId(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Constructor Id: " + model.getConstructorId(), Toast.LENGTH_SHORT).show();
                 ConstructorProfileFragment constructorProfileFragment = new ConstructorProfileFragment();
                 constructorProfileFragment.setArguments(bundle);
 

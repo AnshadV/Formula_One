@@ -66,10 +66,9 @@ public class MainActivity extends AppCompatActivity {
         RaceDataService raceDataService = new RaceDataService(MainActivity.this);
 
 
-        /*bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
 
 
-        });*/
+
 
 
 
@@ -120,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("BranchSDK", "Driver Code: " + driverId);
                 Bundle bundle = new Bundle();
                 bundle.putString("driverId", driverId);
-                Toast.makeText(MainActivity.this, driverId.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, driverId.toString(), Toast.LENGTH_SHORT).show();
                 navController.popBackStack(R.id.homeFragment, false);
                 Navigation.findNavController(MainActivity.this, R.id.main_nav_host_fragment).navigate(R.id.action_homeFragment_to_driverProfileFragment, bundle);
 
