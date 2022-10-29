@@ -89,6 +89,7 @@ public class CartFragment extends Fragment {
         productList = view.findViewById(R.id.cartItemsRecyclerView);
         TextView subTotalPrice = view.findViewById(R.id.subTotalValue);
         TextView totalPriceTv = view.findViewById(R.id.totalValue);
+        checkoutButton = view.findViewById(R.id.checkoutButton);
 
         String constructorId = getArguments().getString("constructorId");
 
@@ -128,6 +129,8 @@ public class CartFragment extends Fragment {
                 new BranchEvent(BRANCH_STANDARD_EVENT.PURCHASE)
                         .addContentItems(buo)
                         .logEvent(getContext());
+
+
             }
         });
         return view;

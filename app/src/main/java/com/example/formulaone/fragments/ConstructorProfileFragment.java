@@ -180,8 +180,8 @@ public class ConstructorProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("constructorId", "ferrari");
-                Navigation.findNavController(v).navigate(R.id.action_constructorProfileFragment_to_cartFragment);
+                bundle.putString("constructorId", constructor);
+                Navigation.findNavController(v).navigate(R.id.action_constructorProfileFragment_to_cartFragment, bundle);
             }
         });
 
