@@ -155,6 +155,8 @@ public class CartFragment extends Fragment {
                         .setCustomerEventAlias("CC")
                         .setRevenue(100)
                         .logEvent(getContext());
+
+
             }
         });
         return view;
