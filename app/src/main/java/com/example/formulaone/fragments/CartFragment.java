@@ -38,7 +38,7 @@ public class CartFragment extends Fragment {
     CartAdapter cartAdapter;
     DatabaseReference mbase;
     Query query;
-    Button checkoutButton;
+    Button checkoutButton, Button22;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -89,6 +89,7 @@ public class CartFragment extends Fragment {
         productList = view.findViewById(R.id.cartItemsRecyclerView);
         TextView subTotalPrice = view.findViewById(R.id.subTotalValue);
         TextView totalPriceTv = view.findViewById(R.id.totalValue);
+        Button22 = view.findViewById(R.id.button22);
 
         String constructorId = getArguments().getString("constructorId");
 
@@ -112,6 +113,28 @@ public class CartFragment extends Fragment {
         Query totalPriceQuery = totalPrice.orderByChild("price").equalTo("price");
         //Toast.makeText(getContext(), "TT"+ totalPriceQuery, Toast.LENGTH_SHORT).show();
 
+        Button22.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BranchUniversalObject buo = new BranchUniversalObject()
+                        .setCanonicalIdentifier("purchase/"+constructorId)
+                        .setTitle("Purchase")
+                        .setPrice(100, CurrencyType.USD)
+                        .setContentDescription("Purchase from "+ constructorId +" merchandise")
+
+                        .setContentMetadata(new ContentMetadata()
+                                .addCustomMetadata("constructor", constructorId)
+                        );
+
+                new BranchEvent("TEST_CUSTOM")
+                        .setCustomerEventAlias("First Purchase")
+                        .addContentItems(buo)
+                        .setCustomerEventAlias("CC")
+                        .setRevenue(100)
+                        //.setTransactionID()
+                        .logEvent(getContext());
+            }
+        });
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,12 +144,16 @@ public class CartFragment extends Fragment {
                         .setTitle("Purchase")
                         .setPrice(100, CurrencyType.USD)
                         .setContentDescription("Purchase from "+ constructorId +" merchandise")
+
                         .setContentMetadata(new ContentMetadata()
                                 .addCustomMetadata("constructor", constructorId)
                         );
 
-                new BranchEvent(BRANCH_STANDARD_EVENT.PURCHASE)
+                new BranchEvent("TEST_CUSTOM")
+                        .setCustomerEventAlias("First Purchase")
                         .addContentItems(buo)
+                        .setCustomerEventAlias("CC")
+                        .setRevenue(100)
                         .logEvent(getContext());
             }
         });

@@ -81,6 +81,7 @@ public class ProductAdapter extends FirebaseRecyclerAdapter<Product, ProductAdap
         new BranchEvent(BRANCH_STANDARD_EVENT.ADD_TO_CART)
                 .setCurrency(CurrencyType.USD)
                 .addContentItems(buo)
+                .setCustomerEventAlias("Old User")
                 .logEvent(context);
 
 

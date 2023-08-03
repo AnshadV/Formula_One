@@ -23,6 +23,8 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.branch.referral.Branch;
+
 
 public class DriversFragment extends Fragment {
     DriverDataService driverDataService;
@@ -42,6 +44,8 @@ public class DriversFragment extends Fragment {
 
     @Override
     public void onStart() {
+
+
         super.onStart();
 
 
@@ -49,7 +53,11 @@ public class DriversFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        Branch branch = Branch.getAutoInstance(this.getContext());
+
+
     }
 
     @Override
