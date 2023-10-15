@@ -1,5 +1,7 @@
 package com.example.formulaone.adapter;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,66 +19,64 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
-public class DriverStandingAdapter extends FirebaseRecyclerAdapter<DriverStanding, DriverStandingAdapter.DriverStandingAdapterHolder> {
+import java.util.ArrayList;
 
-    /**
-     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
-     * {@link FirebaseRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
-    public DriverStandingAdapter(@NonNull FirebaseRecyclerOptions<DriverStanding> options) {
-        super(options);
-    }
 
-    @Override
-    protected void onBindViewHolder(@NonNull DriverStandingAdapterHolder holder, int position, @NonNull DriverStanding model) {
-        holder.firstName.setText(model.getFirstName());
-        holder.lastName.setText(model.getLastName());
-        holder.DriverPosition.setText(model.getPosition());
-        holder.points.setText(model.getPoints());
-        holder.constructor.setText(model.getConstructor());
-        String imageUrl = model.getLink();
-        Picasso.get()
-                .load(imageUrl)
-                .networkPolicy(NetworkPolicy.OFFLINE)
-                .into(holder.driverImage, new Callback() {
-                    @Override
-                    public void onSuccess() {
+public class DriverStandingAdapter extends RecyclerView.Adapter<DriverStandingAdapter.RecyclerViewHolder> {
 
-                    }
 
-                    @Override
-                    public void onError(Exception e) {
-                        Picasso.get()
-                                .load(imageUrl)
-                                .into(holder.driverImage);
-                    }
-                });
+    private ArrayList<DriverStanding> driverStandingList;
+    private Context context;
 
+    public DriverStandingAdapter(ArrayList<DriverStanding> driverStandingList, Context context) {
+        this.context = context;
+        this.driverStandingList = driverStandingList;
     }
 
     @NonNull
     @Override
-    public DriverStandingAdapterHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.driver_standing_item, parent, false);
-        return new DriverStandingAdapterHolder(view);
+    public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view  = LayoutInflater.from(parent.getContext()).inflate(R.layout.driver_standing_item, parent, false);
+        return new RecyclerViewHolder(view);
     }
 
-    public class DriverStandingAdapterHolder extends RecyclerView.ViewHolder {
-        TextView DriverPosition, firstName, lastName, points, constructor;
-        ImageView driverImage;
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
+        DriverStanding driverStanding = driverStandingList.get(position);
+        holder.name.setText(driverStanding.getDriverName());
+        holder.position.setText(String.valueOf(driverStanding.getPosition()));
+        holder.points.setText(String.valueOf(driverStanding.getPoints()));
+        holder.constructor.setText(driverStanding.getConstructor());
+    }
 
 
-        public DriverStandingAdapterHolder(@NonNull View itemView) {
+    @Override
+    public int getItemCount() {
+        return driverStandingList.size();
+    }
+
+    public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private TextView name, position, points, constructor;
+        private ImageView imageView;
+
+        public RecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            DriverPosition = itemView.findViewById(R.id.standingDot);
-            firstName = itemView.findViewById(R.id.standingDriverFirstName);
-            lastName = itemView.findViewById(R.id.standingDriverLastName);
-            constructor = itemView.findViewById(R.id.standingConstructorName);
+            name = itemView.findViewById(R.id.standingDriverName);
+            position = itemView.findViewById(R.id.standingDot);
+            imageView = itemView.findViewById(R.id.driverImage);
             points = itemView.findViewById(R.id.standingPoints);
-            driverImage = itemView.findViewById(R.id.standingDriverImage);
+            constructor = itemView.findViewById(R.id.standingConstructorName);
+
+
+        }
+
+        @Override
+        public void onClick(View view) {
+            //Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+            int position = getAdapterPosition();
+            Bundle bundle = new Bundle();
+
 
         }
     }

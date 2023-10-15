@@ -1,21 +1,15 @@
 package com.example.formulaone.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -157,7 +151,7 @@ public class DriverAdapter extends  RecyclerView.Adapter<DriverAdapter.RecyclerV
             super(itemView);
 
             firstName = itemView.findViewById(R.id.firstName);
-            lastName = itemView.findViewById(R.id.lastName);
+            lastName = itemView.findViewById(R.id.resultDriverName);
             nationality = itemView.findViewById(R.id.driverNationality);
             imageView = itemView.findViewById(R.id.driverImage);
             code = itemView.findViewById(R.id.driverCode);

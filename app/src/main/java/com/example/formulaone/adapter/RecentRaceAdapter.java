@@ -29,7 +29,7 @@ public class RecentRaceAdapter extends FirebaseRecyclerAdapter<RecentRace, Recen
     @Override
     protected void onBindViewHolder(@NonNull RecentRaceAdapterHolder holder, int position, @NonNull RecentRace model) {
         holder.firstName.setText(model.getFirstName());
-        holder.lastName.setText(model.getLastName());
+        //holder.lastName.setText(model.getLastName());
         holder.raceStanding.setText(model.getPosition());
         holder.raceTime.setText(model.getTime());
     }
@@ -46,8 +46,8 @@ public class RecentRaceAdapter extends FirebaseRecyclerAdapter<RecentRace, Recen
         public RecentRaceAdapterHolder(@NonNull View itemView) {
             super(itemView);
             raceStanding = itemView.findViewById(R.id.race_standing);
-            firstName = itemView.findViewById(R.id.firstName);
-            lastName = itemView.findViewById(R.id.lastName);
+            firstName = itemView.findViewById(R.id.resultDriverName);
+            //lastName = itemView.findViewById(R.id.lastName);
             raceTime = itemView.findViewById(R.id.race_time);
 
         }

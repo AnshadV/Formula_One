@@ -49,7 +49,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/standingDriverFirstName"
+            android:id="@+id/standingDriverName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -60,27 +60,15 @@
             app:layout_constraintStart_toEndOf="@id/imageRl" />
 
         <TextView
-            android:id="@+id/standingDriverLastName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_toEndOf="@+id/standingDriverFirstName"
-            android:paddingTop="5dp"
-            android:text="LECLARC"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/standingDriverFirstName" />
-
-        <TextView
             android:id="@+id/standingConstructorName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/standingDriverFirstName"
+            android:layout_below="@id/standingDriverName"
             android:layout_marginStart="10dp"
             android:text="ferrari"
             android:textColor="#62EADE"
             app:layout_constraintStart_toEndOf="@id/imageRl"
-            app:layout_constraintTop_toBottomOf="@id/standingDriverFirstName" />
+            app:layout_constraintTop_toBottomOf="@id/standingDriverName" />
 
         <TextView
             android:id="@+id/standingPoints"
