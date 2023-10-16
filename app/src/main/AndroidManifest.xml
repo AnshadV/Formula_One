@@ -43,11 +43,21 @@
                 <!-- example-alternate domain is required for App Links when the Journeys/Web SDK and Deepviews are used inside your website.  -->
                 <data android:scheme="https" android:host="f6rwa-alternate.test-app.link" />
             </intent-filter>
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="shikha.app.link" />
+                <!-- example-alternate domain is required for App Links when the Journeys/Web SDK and Deepviews are used inside your website.  -->
+                <data android:scheme="https" android:host="shikha-alternate.app.link" />
+            </intent-filter>
         </activity>
 
-            <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_faYV5HLaDRkb0Im8uMm3JegbvDkLzrzT" />
-            <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_hgWN1VUgzLcn9Tb9AJd7OekgFunHzwD2" />
-            <meta-data android:name="io.branch.sdk.TestMode" android:value="true" />
+        <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_ck6IJqwt5nv96xoYaQYRikamEwdhwI4r" />
+
+
+
 
 
     </application>

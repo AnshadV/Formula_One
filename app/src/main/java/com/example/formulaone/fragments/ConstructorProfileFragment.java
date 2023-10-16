@@ -28,6 +28,12 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import io.branch.indexing.BranchUniversalObject;
+import io.branch.referral.util.BRANCH_STANDARD_EVENT;
+import io.branch.referral.util.BranchEvent;
+import io.branch.referral.util.ContentMetadata;
+import io.branch.referral.util.CurrencyType;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ConstructorProfileFragment#newInstance} factory method to
@@ -179,9 +185,27 @@ public class ConstructorProfileFragment extends Fragment {
         gotoCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("constructorId", constructor);
-                Navigation.findNavController(v).navigate(R.id.action_constructorProfileFragment_to_cartFragment, bundle);
+
+                    BranchUniversalObject buo = new BranchUniversalObject()
+                            .setCanonicalIdentifier("purchase")
+                            .setTitle("Purchase")
+                            .setPrice(100, CurrencyType.USD)
+                            .setContentDescription("Purchase from  merchandise")
+
+                            .setContentMetadata(new ContentMetadata()
+                                    .addCustomMetadata("constructor", "cu")
+                            );
+
+                    new BranchEvent(BRANCH_STANDARD_EVENT.PURCHASE)
+                            .addContentItems(buo)
+                            .setCustomerEventAlias("CL")
+                            .setRevenue(120)
+                            .logEvent(getContext());
+
+
+                //Bundle bundle = new Bundle();
+                //bundle.putString("constructorId", "ferrari");
+                //Navigation.findNavController(v).navigate(R.id.action_constructorProfileFragment_to_cartFragment);
             }
         });
 

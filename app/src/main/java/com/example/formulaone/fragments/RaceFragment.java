@@ -1,14 +1,25 @@
 package com.example.formulaone.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.formulaone.R;
+
+import org.json.JSONObject;
+
+import io.branch.referral.Branch;
+import io.branch.referral.BranchError;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +72,26 @@ public class RaceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_race, container, false);
+        String userId = "ABC12";
+        View view = inflater.inflate(R.layout.fragment_race, container, false);
+
+        Button button = view.findViewById(R.id.buttonUpdate);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Branch.getInstance().setIdentity(userId, new Branch.BranchReferralInitListener() {
+                    @Override
+                    public void onInitFinished(@Nullable JSONObject referringParams, @Nullable BranchError error) {
+                        Log.d("BranchSDK_Tester", "Identity set to " + userId +"\nInstall params = " + referringParams.toString());
+                        if (error != null) {
+                            Log.e("BranchSDK_Tester", "branch set Identity failed. Caused by -" + error.getMessage());
+                        }
+                        Toast.makeText(getContext(), "Set Identity to " + userId, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        return view;
     }
 }

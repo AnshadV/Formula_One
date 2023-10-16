@@ -1,5 +1,7 @@
 package com.example.formulaone;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,8 +11,14 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,25 +31,45 @@ import com.example.formulaone.apiservices.ConstructorDataService;
 import com.example.formulaone.apiservices.DriverDataService;
 import com.example.formulaone.apiservices.RaceDataService;
 import com.example.formulaone.fragments.DriverProfileFragment;
+import com.example.formulaone.models.BranchEvent;
 import com.example.formulaone.models.Constructor;
 import com.example.formulaone.models.Driver;
 import com.example.formulaone.models.Race;
+import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
+import com.firebase.ui.auth.IdpResponse;
+import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
 import org.json.JSONObject;
 
+import java.io.Console;
+import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import io.branch.indexing.BranchUniversalObject;
 import io.branch.referral.Branch;
 import io.branch.referral.BranchError;
+import io.branch.referral.util.BRANCH_STANDARD_EVENT;
+import io.branch.referral.util.ContentMetadata;
 import io.branch.referral.util.LinkProperties;
 import io.branch.referral.validators.IntegrationValidator;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import com.firebase.ui.auth.AuthUI;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -51,10 +79,32 @@ public class MainActivity extends AppCompatActivity {
     NavController navController;
     DatabaseReference databaseRefecrence;
 
+    AsyncTask<?, ?, ?> runningTask;
+    private FirebaseAnalytics mFirebaseAnalytics;
+    String FbInstanceId;
+    BranchEvent branchEvent;
+
+    private WeakReference<Context> contextWeakReference;
+    //private BranchAdvertisingIDCallback branchAdvertisingIDCallback;
+
+
+
+    @SuppressLint("HardwareIds")
+    public String getAndroidID() {
+        //ContentResolver contentResolver = contextWeakReference.get().getContentResolver();
+        Log.e("android_id", Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID));
+        return Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
 
         navController = Navigation.findNavController(this, R.id.main_nav_host_fragment);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -67,66 +117,159 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
     }
 
+    private void initializeBranch() {
+        if (FbInstanceId != null) {
+            Branch.getInstance().setRequestMetadata("$firebase_app_instance_id", FbInstanceId);
+
+            new io.branch.referral.util.BranchEvent(BRANCH_STANDARD_EVENT.START_TRIAL)
+                    .logEvent(this);
+        } else {
+            Log.e("Error", "FbInstanceId is null");
+        }
+    }
 
 
     @Override public void onStart() {
         super.onStart();
-        Branch.getInstance().initSession(branchReferralInitListener, this.getIntent().getData(), this);
 
-        /*Branch.sessionBuilder(this).withCallback(new Branch.BranchReferralInitListener() {
+        //IntegrationValidator.validate(this);
+
+        //runningTask = new doHttpCalln();
+        //runningTask.execute();
+
+
+        //Branch.expectDelayedSessionInitialization(true);
+
+        //Branch.getInstance().disableTracking(true);
+        //Branch.getInstance().val
+
+        getAndroidID();
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Task<String> task = mFirebaseAnalytics.getAppInstanceId();
+        task.addOnSuccessListener(new OnSuccessListener<String>() {
             @Override
-            public void onInitFinished(@Nullable JSONObject referringParams, @Nullable BranchError error) {
-                if(error == null) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("$referring_link", referringParams.toString());
+            public void onSuccess(String s) {
+                Log.e("Instance id", s);
 
+                // Set the FbInstanceId variable and initialize the Branch instance
+                FbInstanceId = s;
+                initializeBranch();
+            }
+        });
+
+
+
+        Branch.sessionBuilder(this).withCallback(new Branch.BranchUniversalReferralInitListener() {
+            @Override
+            public void onInitFinished(BranchUniversalObject branchUniversalObject, LinkProperties linkProperties, BranchError error) {
+                if (error != null) {
+                    Log.e("BranchSDK_Tester", "branch init failed. Caused by -" + error.getMessage());
                 } else {
-                    Log.i("BranchSDK", "Branch Referral Error: " + error.getMessage());
+                    Log.e("BranchSDK_Tester", "branch init complete!");
+                    if (branchUniversalObject != null) {
+                        Log.e("BranchSDK_Tester", "title " + branchUniversalObject.getTitle());
+                        Log.e("BranchSDK_Tester", "CanonicalIdentifier " + branchUniversalObject.getCanonicalIdentifier());
+                        Log.e("BranchSDK_Tester", "metadata " + branchUniversalObject.getContentMetadata().convertToJson());
+                    }
+
+                    if (linkProperties != null) {
+                        Log.e("BranchSDK_Tester", "Channel " + linkProperties.getChannel());
+                        Log.e("BranchSDK_Tester", "control params " + linkProperties.getControlParams());
+                    }
                 }
             }
         }).withData(this.getIntent().getData()).init();
-        */
 
         //integration test
-        //IntegrationValidator.validate(this);
+
 
     }
+
+
 
     //delete the cart value on activity destroy
 
 
-    public Branch.BranchUniversalReferralInitListener branchReferralInitListener = new Branch.BranchUniversalReferralInitListener() {
-        @Override
-        public void onInitFinished(@Nullable BranchUniversalObject branchUniversalObject, @Nullable LinkProperties linkProperties, @Nullable BranchError error) {
-            if(branchUniversalObject == null) {
-                Log.i("BranchSDK", "Branch Universal Object is null");
-                Navigation.findNavController(MainActivity.this, R.id.main_nav_host_fragment).navigate(R.id.homeFragment);
-            } else if(branchUniversalObject.getContentMetadata().getCustomMetadata().containsKey("$android_deeplink_path")){
-                Log.i("BranchSDK", "Branch Universal Object does not contain deeplink path");
-
-                String driverId = branchUniversalObject.getContentMetadata().getCustomMetadata().get("driverId");
-
-                Log.i("BranchSDK", "Driver Code: " + branchUniversalObject.getContentMetadata().getCustomMetadata().get("driverId"));
-                Log.i("BranchSDK", "Driver Code: " + driverId);
-                Bundle bundle = new Bundle();
-                bundle.putString("driverId", driverId);
-                //Toast.makeText(MainActivity.this, driverId.toString(), Toast.LENGTH_SHORT).show();
-                navController.popBackStack(R.id.homeFragment, false);
-                Navigation.findNavController(MainActivity.this, R.id.main_nav_host_fragment).navigate(R.id.action_homeFragment_to_driverProfileFragment, bundle);
 
 
+
+    private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
+            new FirebaseAuthUIActivityResultContract(),
+            new ActivityResultCallback<FirebaseAuthUIAuthenticationResult>() {
+                @Override
+                public void onActivityResult(FirebaseAuthUIAuthenticationResult result) {
+                    onSignInResult(result);
+                }
             }
+    );
+
+    List<AuthUI.IdpConfig> providers = Arrays.asList(
+            new AuthUI.IdpConfig.GoogleBuilder().build());
+
+    Intent signInIntent = AuthUI.getInstance()
+            .createSignInIntentBuilder()
+            .setAvailableProviders(providers)
+            .build();
+    //signInLauncher.launch(signInIntent);
+
+    private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
+        IdpResponse response = result.getIdpResponse();
+        if(result.getResultCode() == RESULT_OK) {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        } else {
+            //sign in failed
         }
-    };
+    }
+
+
+    private class doHttpCall extends AsyncTask {
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            Response response = null;
+                OkHttpClient client = new OkHttpClient();
+                Log.i("Oncreate", "Start");
+                Request request = new Request.Builder()
+                        .url("https://api2.branch.io/v1/url?url=https://f6rwa.app.link/mobile/sso&branch_key=key_live_mjZS3VGlwUcl8Hk1uRlWUhegqvjRvEtJ")
+                        .get()
+                        .addHeader("accept", "application/json")
+                        .build();
+
+            try {
+                response = client.newCall(request).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return Log.i("executed from OnCreate", String.valueOf(response));
+        }
+
+        }
+
+    private class doHttpCalln extends AsyncTask {
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            Response response = null;
+            OkHttpClient client = new OkHttpClient();
+            Log.i("OnStart", "Start");
+            Request request = new Request.Builder()
+                    .url("https://api2.branch.io/v1/url?url=https://f6rwa.app.link/mobile/sso&branch_key=key_live_mjZS3VGlwUcl8Hk1uRlWUhegqvjRvEtJ")
+                    .get()
+                    .addHeader("accept", "application/json")
+                    .build();
+
+            try {
+                response = client.newCall(request).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return Log.i("executed from OnStart", String.valueOf(response));
+        }
+
+    }
+
 
 
 }

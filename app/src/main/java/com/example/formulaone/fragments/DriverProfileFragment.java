@@ -63,11 +63,13 @@ public class DriverProfileFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        Branch.getAutoInstance(this.getContext()).addFacebookPartnerParameterWithName("em", "194b86d986ad041666822dad7602f1a7bac1d9e286273e86141666ffb4b1909b");
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Branch.getInstance().addFacebookPartnerParameterWithName("em", "194b86d986ad041666822dad7602f1a7bac1d9e286273e86141666ffb4b1909b");
         if (getArguments() != null) {
             driverID = getArguments().getString("$referring_link");
             Log.i("$referring_link", String.valueOf(driverID));
@@ -186,8 +188,12 @@ public class DriverProfileFragment extends Fragment {
                         .setContentMetadata(new ContentMetadata()
                                 .addCustomMetadata("driverId", driverID));
 
+
+
+
                 //Profile sharing event
                 new BranchEvent(BRANCH_STANDARD_EVENT.SHARE)
+                        .addCustomDataProperty("driverId", driverID)
                         .addContentItems(buo)
                         .logEvent(getContext());
             }
@@ -205,12 +211,20 @@ public class DriverProfileFragment extends Fragment {
 
     }
 
+
+
+
+
+
     private void shareDriverProfile() {
 
         LinkProperties linkProperties = new LinkProperties()
                 .setFeature("DriverProfileSharing")
                 .setStage("1")
+                .setAlias("alonsonew")
                 .addControlParameter("$android_deeplink_path", "driverProfile")
+                .addControlParameter("$android_passive_deepview", "false")
+                .addControlParameter("$deeplink_path","testpath")
                 .addControlParameter("driverId", driverID);
 
         final String driverName = getArguments().getString("name") + " " + getArguments().getString("lastName");
@@ -231,13 +245,23 @@ public class DriverProfileFragment extends Fragment {
         BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
                 .setCanonicalIdentifier("driverProfile")
                 .setTitle(driverName)
+
                 .setContentDescription("Check out this driver")
                 //.setContentImageUrl(getDriverImageUrl())
                 .setContentMetadata(new ContentMetadata()
                         .addCustomMetadata("driverId", driverID));
 
+        branchUniversalObject.generateShortUrl(getContext(), linkProperties, new Branch.BranchLinkCreateListener() {
+            @Override
+            public void onLinkCreate(String url, BranchError error) {
+                if (error == null) {
+                    Log.i("MyApp", "got my Branch link to share: " + url);
+                }
+            }
+        });
 
         branchUniversalObject.showShareSheet(getActivity(), linkProperties, shareSheetStyle, new Branch.BranchLinkShareListener() {
+
             @Override
             public void onShareLinkDialogLaunched() {
                 Log.i("DriverProfileFragment", "Share Link Dialog Launched");
@@ -256,7 +280,10 @@ public class DriverProfileFragment extends Fragment {
             @Override
             public void onChannelSelected(String channelName) {
                 Log.i("DriverProfileFragment", "Channel Selected: " + channelName);
+                linkProperties.addControlParameter("driverId", "null");
             }
+
+
         });
 
     }
