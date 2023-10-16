@@ -136,7 +136,6 @@ public class DriverProfileFragment extends Fragment {
                                                 .into(driverImage);
                                     }
                                 });
-
                     }
 
                     @Override

@@ -32,7 +32,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/resultDriverName"
+            android:id="@+id/lastName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -66,7 +66,7 @@
             android:layout_marginTop="18dp"
             android:text="Country"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/resultDriverName" />
+            app:layout_constraintTop_toBottomOf="@+id/lastName" />
 
         <TextView
             android:id="@+id/driverNationality"

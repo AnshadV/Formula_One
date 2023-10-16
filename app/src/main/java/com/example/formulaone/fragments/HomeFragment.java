@@ -8,7 +8,6 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,22 +19,17 @@ import com.example.formulaone.R;
 import com.example.formulaone.adapter.ConstructorStandingAdapter;
 import com.example.formulaone.adapter.DriverStandingAdapter;
 import com.example.formulaone.adapter.RecentRaceAdapter;
-import com.example.formulaone.apiservices.DriverStandingDataService;
 import com.example.formulaone.apiservices.RaceDataService;
-import com.example.formulaone.apiservices.rRaceDataService;
 import com.example.formulaone.models.ConstructorStanding;
 import com.example.formulaone.models.DriverStanding;
 import com.example.formulaone.models.Race;
-import com.example.formulaone.models.RaceData;
 import com.example.formulaone.models.RecentRace;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,9 +42,7 @@ public class HomeFragment extends Fragment {
     RecyclerView latestResultsRecyclerView, driverStandingsRecyclerView, constructorStandingRecyclerView;
     DatabaseReference mbase, mbase1, mbase2;
     RecentRaceAdapter recentRaceAdapter;
-    rRaceDataService raceDataService;
     DriverStandingAdapter driverStandingAdapter;
-    DriverStandingDataService driverStandingDataService;
     ConstructorStandingAdapter constructorStandingAdapter;
     Query query;
 
@@ -102,9 +94,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Log.d("outside the call", "oncreate ");
-        //testDriverStandingService();
-        testRaceDataService();
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         raceName = view.findViewById(R.id.raceName);
         latestResultsRecyclerView = view.findViewById(R.id.latestResultsRecyclerView);
@@ -112,37 +101,26 @@ public class HomeFragment extends Fragment {
         constructorStandingRecyclerView = view.findViewById(R.id.constructorStandingRecyclerView);
 
         mbase = FirebaseDatabase.getInstance().getReference("recentResult");
-        Log.d("Outside the call", "API: up ");
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        latestResultsRecyclerView.setLayoutManager(linearLayoutManager);
+        FirebaseRecyclerOptions<RecentRace> options = new FirebaseRecyclerOptions.Builder<RecentRace>().setQuery(mbase, RecentRace.class).build();
+        recentRaceAdapter = new RecentRaceAdapter(options);
+        latestResultsRecyclerView.setAdapter(recentRaceAdapter);
+
+        mbase1 = FirebaseDatabase.getInstance().getReference("DriverStandings");
+        query = mbase1.orderByChild("position");
 
 
 
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getContext());
+        linearLayoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
+        driverStandingsRecyclerView.setLayoutManager(linearLayoutManager1);
 
-        Log.d("Outside the call", "API: ");
-        driverStandingDataService = new DriverStandingDataService(getContext());
-        Log.d("Inside the call", "Service: ");
-        driverStandingDataService.driverStandings(new DriverStandingDataService.DriverStandingResponseListener() {
-            @Override
-            public void onResponse(List<DriverStanding> driverStandings) {
-                Log.d("Inside the call", "API: ");
-                Log.d("DriverStandingsCount", "Count: " + driverStandings.size());
-
-                driverStandingAdapter = new DriverStandingAdapter((ArrayList<DriverStanding>) driverStandings, getContext());
-                driverStandingsRecyclerView.setAdapter(driverStandingAdapter);
-
-                LinearLayoutManager manager = new LinearLayoutManager(getContext());
-                driverStandingsRecyclerView.setLayoutManager(manager);
-
-            }
-
-            @Override
-            public void onError(String message) {
-                Log.d( "Something went wrong" , message.toString());
-
-            }
-        });
-
-
-
+        FirebaseRecyclerOptions<DriverStanding> options1 = new FirebaseRecyclerOptions.Builder<DriverStanding>().setQuery(query, DriverStanding.class).build();
+        driverStandingAdapter = new DriverStandingAdapter(options1);
+        driverStandingsRecyclerView.setAdapter(driverStandingAdapter);
 
         mbase2 = FirebaseDatabase.getInstance().getReference("ConstructorStandings");
 
@@ -156,14 +134,7 @@ public class HomeFragment extends Fragment {
 
 
 
-        mbase = FirebaseDatabase.getInstance().getReference("recentResult");
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        latestResultsRecyclerView.setLayoutManager(linearLayoutManager);
-        FirebaseRecyclerOptions<RecentRace> options = new FirebaseRecyclerOptions.Builder<RecentRace>().setQuery(mbase, RecentRace.class).build();
-        recentRaceAdapter = new RecentRaceAdapter(options);
-        latestResultsRecyclerView.setAdapter(recentRaceAdapter);
 
 
 
@@ -186,7 +157,7 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void onError(String error) {
-                        Log.d( "Something went wrong" , error.toString());
+                        Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -201,6 +172,7 @@ public class HomeFragment extends Fragment {
         //LayoutInflater.from(getParentFragment().getContext()).inflate(R.layout.fragment_home, container, true);
         super.onStart();
         recentRaceAdapter.startListening();
+        driverStandingAdapter.startListening();
         constructorStandingAdapter.startListening();
     }
 
@@ -214,41 +186,7 @@ public class HomeFragment extends Fragment {
     public void onStop() {
         super.onStop();
         recentRaceAdapter.stopListening();
+        driverStandingAdapter.stopListening();
         constructorStandingAdapter.stopListening();
     }
-
-    private void testDriverStandingService() {
-        Log.d("Inside the testcase", "API: ");
-        driverStandingDataService = new DriverStandingDataService(getContext());
-        driverStandingDataService.driverStandings(new DriverStandingDataService.DriverStandingResponseListener() {
-            @Override
-            public void onResponse(List<DriverStanding> driverStandings) {
-                // Log the count of driverStandings for testing
-                Log.d("DriverStandingsCount ", "Count: " + driverStandings.size());
-            }
-
-            @Override
-            public void onError(String message) {
-                Log.d( "Something went wrong" , message.toString());
-            }
-        });
-    }
-
-    private void testRaceDataService() {
-        raceDataService = new rRaceDataService(getContext());
-        Log.d( "RaceDataService" ,"Inside the test");
-        raceDataService.getRaceData(new rRaceDataService.RaceResponseListener() {
-            @Override
-            public void onResponse(RaceData raceData) {
-                Log.d( "RaceDataService" , raceData.toString());
-                Log.d("RaceDataService", "JSON Response: " + new Gson().toJson(raceData));
-            }
-
-            @Override
-            public void onError(String message) {
-                Log.d( "Something  RDS" , message.toString());
-            }
-        });
-    }
-
 }

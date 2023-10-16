@@ -183,7 +183,7 @@ public class RaceDataService {
                         Race race = new Race(season, round, url, raceName, mCircuit, formattedRaceDate, raceTime, resultList);
                         raceList.add(race);
                         //Toast.makeText(context, race.toString(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(context, raceList.get(0).toString(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, raceList.get(0).toString(), Toast.LENGTH_SHORT).show();
                     }
 
                     raceResponseListener.onResponse(raceList);

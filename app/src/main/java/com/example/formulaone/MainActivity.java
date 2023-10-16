@@ -80,8 +80,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override public void onStart() {
         super.onStart();
+        Branch.getInstance().initSession(branchReferralInitListener, this.getIntent().getData(), this);
 
-        Branch.sessionBuilder(this).withCallback(new Branch.BranchReferralInitListener() {
+        /*Branch.sessionBuilder(this).withCallback(new Branch.BranchReferralInitListener() {
             @Override
             public void onInitFinished(@Nullable JSONObject referringParams, @Nullable BranchError error) {
                 if(error == null) {
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).withData(this.getIntent().getData()).init();
-
+        */
 
         //integration test
         //IntegrationValidator.validate(this);

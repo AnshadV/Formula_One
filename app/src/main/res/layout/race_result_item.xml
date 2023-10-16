@@ -23,18 +23,30 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/resultDriverName"
-            android:layout_width="0dp"
+            android:id="@+id/firstName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:paddingVertical="10dp"
+            android:padding="10dp"
+            android:text="Charles"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/race_standing"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lastName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:text="Leclarc"
             android:textColor="@color/white"
+            android:paddingVertical="10dp"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/race_time"
-            app:layout_constraintStart_toEndOf="@+id/race_standing"
+            app:layout_constraintStart_toEndOf="@+id/firstName"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

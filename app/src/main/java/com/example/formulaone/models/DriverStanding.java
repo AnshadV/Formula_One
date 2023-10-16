@@ -1,35 +1,64 @@
 package com.example.formulaone.models;
 
-import java.util.List;
 public class DriverStanding {
-    private int position;
-    private String driverName;
-    private String constructor;
-    private int points;
-    private int wins;
 
-    public DriverStanding(int position, String driverName, String constructor, int points, int wins) {
+    String position;
+    String firstName;
+    String lastName;
+    String points;
+    String link;
+    String constructor;
+
+    public DriverStanding() {
+    }
+
+    public DriverStanding(String position, String firstName, String lastName, String points, String link, String constructor) {
         this.position = position;
-        this.driverName = driverName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.points = points;
-        this.wins = wins;
+        this.link = link;
         this.constructor = constructor;
     }
 
-    public int getPosition() {
+    public String getPosition() {
         return position;
     }
 
-    public String getDriverName() {
-        return driverName;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
-    public int getPoints() {
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPoints() {
         return points;
     }
 
-    public int getWins() {
-        return wins;
+    public void setPoints(String points) {
+        this.points = points;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getConstructor() {
