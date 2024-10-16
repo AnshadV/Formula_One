@@ -134,6 +134,7 @@ public class DriverAdapter extends  RecyclerView.Adapter<DriverAdapter.RecyclerV
                 .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
                 .setContentDescription("Driver Profile")
                 .setContentMetadata(new ContentMetadata()
+                        .setSku(model.getDriverId())
                         .addCustomMetadata("driverId", model.getDriverId())
                         .addCustomMetadata("name", model.getDriverName() + " " + model.getLastName()));
 

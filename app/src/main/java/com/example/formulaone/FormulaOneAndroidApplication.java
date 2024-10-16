@@ -14,7 +14,7 @@ public class FormulaOneAndroidApplication extends Application {
         super.onCreate();
 
         Branch.enableLogging();
-        Branch.enableTestMode();
+        //Branch.enableTestMode();
         Branch.getAutoInstance(this);
 
         Picasso.Builder builder = new Picasso.Builder(this);
